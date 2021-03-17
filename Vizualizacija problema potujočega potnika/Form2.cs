@@ -37,5 +37,14 @@ namespace Vizualizacija_problema_potujočega_potnika
             Graphics g = panel1.CreateGraphics();
             g.Clear(Color.White);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (nadomestneTocke.Count < 3)
+            {
+                DialogResult = DialogResult.None;
+                MessageBox.Show("Izbrati moraš več kot 3 točke.");
+            }
+        }
     }
 }

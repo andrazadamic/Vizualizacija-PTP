@@ -9,3 +9,13 @@ C:\Users\andra\source\repos\Vizualizacija problema potujočega potnika\Vizualiza
 C:\Users\andra\source\repos\Vizualizacija problema potujočega potnika\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.exe
 C:\Users\andra\source\repos\Vizualizacija problema potujočega potnika\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.pdb
 C:\Users\andra\source\repos\Vizualizacija problema potujočega potnika\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija_problema_potujočega_potnika.Form2.resources
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\bin\Debug\Vizualizacija problema potujočega potnika.exe.config
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\bin\Debug\Vizualizacija problema potujočega potnika.exe
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\bin\Debug\Vizualizacija problema potujočega potnika.pdb
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.csprojAssemblyReference.cache
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija_problema_potujočega_potnika.Form1.resources
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija_problema_potujočega_potnika.Form2.resources
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija_problema_potujočega_potnika.Properties.Resources.resources
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.csproj.GenerateResource.cache
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.exe
+C:\Users\Uporabnik\Desktop\Vizualizacija-PTP\Vizualizacija problema potujočega potnika\obj\Debug\Vizualizacija problema potujočega potnika.pdb
