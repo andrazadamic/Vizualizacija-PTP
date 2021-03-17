@@ -25,7 +25,7 @@ namespace Vizualizacija_problema_potujočega_potnika
         private void Form1_Load(object sender, EventArgs e)
         {
             Random r = new Random();
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 3; i++)
             {
                 tocke.Add(new Tocka().NakljucnaTocka(r));
             }
@@ -39,7 +39,7 @@ namespace Vizualizacija_problema_potujočega_potnika
         }
 
         // Algoritem Najbližji sosed (ang. Nearest Neighbour)
-        public void NajblizjiSosed(List<Tocka> tocke)
+        public void NajblizjiSosed()
         {
             Graphics g = panel1.CreateGraphics();
             Pen pen = new Pen(Color.Black);
@@ -57,9 +57,9 @@ namespace Vizualizacija_problema_potujočega_potnika
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            do
+            while (obiskaneTocke.Count <= tocke.Count)
             {
-                minD = 1000000000.0;
+                minD = 999999999;
                 for (int j = 0; j < tocke.Count; j++)
                 {
                     if (trenutnaTocka == j || obiskaneTocke.Contains(j))
@@ -83,7 +83,7 @@ namespace Vizualizacija_problema_potujočega_potnika
                 koncniD += d;
                 trenutnaTocka = minTocka;
 
-            } while (obiskaneTocke.Count <= tocke.Count);
+            }
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -98,7 +98,7 @@ namespace Vizualizacija_problema_potujočega_potnika
         // S klikom na gumb izvedemo algoritem in ga vizualiziramo
         private void button1_Click(object sender, EventArgs e)
         {
-            NajblizjiSosed(tocke);
+            BruteForce();
         }
 
         // S klikom na gumb počistimo črte
@@ -114,9 +114,9 @@ namespace Vizualizacija_problema_potujočega_potnika
             Graphics g = panel1.CreateGraphics();
             SolidBrush brush = new SolidBrush(Color.Black);
             SolidBrush redBrush = new SolidBrush(Color.Red);
-            
+
             g.Clear(Color.White);
-            
+
             for (int i = 0; i < tocke.Count; i++)
             {
                 if (i == 0)
@@ -156,6 +156,93 @@ namespace Vizualizacija_problema_potujočega_potnika
             {
                 tocke = f.nadomestneTocke;
                 NarisiTocke();
+            }
+        }
+
+        double minD;
+        Tocka[] minT = new Tocka[0];
+
+        public void BruteForce()
+        {
+            Console.WriteLine("---------------------------------------");
+            minD = 999999999;
+            Graphics g = panel1.CreateGraphics();
+            Pen pen = new Pen(Color.Black);
+            Tocka[] lt = tocke.ToArray();
+            minT = tocke.ToArray();
+
+            Permute(lt, 0, lt.Length - 1);
+
+            for (int i = 1; i < minT.Length; i++)
+            {
+                g.DrawLine(pen, minT[i - 1].x, minT[i - 1].y, minT[i].x, minT[i].y);
+            }
+            g.DrawLine(pen, minT[minT.Length - 1].x, minT[minT.Length - 1].y, minT[0].x, minT[0].y);
+
+            Console.WriteLine("\nIzris:");
+            for (int i = 0; i < minT.Length; i++)
+            {
+                minT[i].IzpisiTocko();
+            }
+
+            label1.Text = "Dolžina poti: " + minD;
+
+        }
+
+        public void Swap(ref Tocka t1, ref Tocka t2)
+        {
+            Tocka temp = t1;
+            t1 = t2;
+            t2 = temp;
+        }
+
+        public void Permute(Tocka[] lt, int recursionDepth, int maxDepth)
+        {
+
+            if (recursionDepth == maxDepth)
+            {
+                Primerjava(lt);
+                return;
+            }
+
+            for (int i = recursionDepth; i <= maxDepth; i++)
+            {
+                Swap(ref lt[recursionDepth], ref lt[i]);
+                Permute(lt, recursionDepth + 1, maxDepth);
+
+                Swap(ref lt[recursionDepth], ref lt[i]);
+            }
+        }
+
+        public double Dolzina(Tocka[] t)
+        {
+            double d = 0;
+            for (int i = 1; i < t.Length; i++)
+            {
+                d += Math.Sqrt(Math.Pow(t[i].x - t[i - 1].x, 2) + Math.Pow(t[i].y - t[i - 1].y, 2));
+            }
+            d += Math.Sqrt(Math.Pow(t[t.Length - 1].x - t[0].x, 2) + Math.Pow(t[t.Length - 1].y - t[0].y, 2));
+            return d;
+        }
+
+        public void Primerjava(Tocka[] t)
+        {
+            double d = Dolzina(t);
+            //Console.WriteLine(d);
+            if (d < minD)
+            {
+                minD = d;
+                Console.WriteLine("\nPred:");
+                for (int i = 0; i < minT.Length; i++)
+                {
+                    minT[i].IzpisiTocko();
+                }
+                minT = t;
+                Console.WriteLine("\nPo:");
+                for (int i = 0; i < minT.Length; i++)
+                {
+                    minT[i].IzpisiTocko();
+                }
             }
         }
     }

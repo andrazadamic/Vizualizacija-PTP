@@ -161,7 +161,7 @@ namespace Vizualizacija_problema_potujočega_potnika
             this.MinimumSize = new System.Drawing.Size(1080, 720);
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(15);
-            this.Text = "Form1";
+            this.Text = "Vizualizacija PTP";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
