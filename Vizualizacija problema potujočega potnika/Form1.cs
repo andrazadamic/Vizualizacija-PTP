@@ -16,6 +16,9 @@ namespace Vizualizacija_problema_potujočega_potnika
         // Deklariramo seznam razreda Tocka
         List<Tocka> tocke = new List<Tocka>();
 
+        double minD;
+        static Tocka[] minT = new Tocka[0];
+
         public Form1()
         {
             InitializeComponent();
@@ -159,12 +162,10 @@ namespace Vizualizacija_problema_potujočega_potnika
             }
         }
 
-        double minD;
-        Tocka[] minT = new Tocka[0];
+        
 
         public void BruteForce()
         {
-            Console.WriteLine("---------------------------------------");
             minD = 999999999;
             Graphics g = panel1.CreateGraphics();
             Pen pen = new Pen(Color.Black);
@@ -178,12 +179,6 @@ namespace Vizualizacija_problema_potujočega_potnika
                 g.DrawLine(pen, minT[i - 1].x, minT[i - 1].y, minT[i].x, minT[i].y);
             }
             g.DrawLine(pen, minT[minT.Length - 1].x, minT[minT.Length - 1].y, minT[0].x, minT[0].y);
-
-            Console.WriteLine("\nIzris:");
-            for (int i = 0; i < minT.Length; i++)
-            {
-                minT[i].IzpisiTocko();
-            }
 
             label1.Text = "Dolžina poti: " + minD;
 
@@ -228,21 +223,11 @@ namespace Vizualizacija_problema_potujočega_potnika
         public void Primerjava(Tocka[] t)
         {
             double d = Dolzina(t);
-            //Console.WriteLine(d);
             if (d < minD)
             {
+                minT =(Tocka[]) t.Clone();
                 minD = d;
-                Console.WriteLine("\nPred:");
-                for (int i = 0; i < minT.Length; i++)
-                {
-                    minT[i].IzpisiTocko();
-                }
-                minT = t;
-                Console.WriteLine("\nPo:");
-                for (int i = 0; i < minT.Length; i++)
-                {
-                    minT[i].IzpisiTocko();
-                }
+                
             }
         }
     }
