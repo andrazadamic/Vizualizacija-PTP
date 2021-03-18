@@ -101,7 +101,22 @@ namespace Vizualizacija_problema_potujočega_potnika
         // S klikom na gumb izvedemo algoritem in ga vizualiziramo
         private void button1_Click(object sender, EventArgs e)
         {
-            BruteForce();
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    NarisiTocke();
+                    NajblizjiSosed();
+                    break;
+
+                case 1:
+                    NarisiTocke();
+                    BruteForce();
+                    break;
+
+                default:
+                    break;
+            }
+
         }
 
         // S klikom na gumb počistimo črte
@@ -162,17 +177,24 @@ namespace Vizualizacija_problema_potujočega_potnika
             }
         }
 
-        
+
 
         public void BruteForce()
         {
             minD = 999999999;
+            label1.Text = "Dolžina poti: ";
+            label2.Text = "Čas delovanja: ";
             Graphics g = panel1.CreateGraphics();
             Pen pen = new Pen(Color.Black);
             Tocka[] lt = tocke.ToArray();
             minT = tocke.ToArray();
 
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             Permute(lt, 0, lt.Length - 1);
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
 
             for (int i = 1; i < minT.Length; i++)
             {
@@ -180,7 +202,8 @@ namespace Vizualizacija_problema_potujočega_potnika
             }
             g.DrawLine(pen, minT[minT.Length - 1].x, minT[minT.Length - 1].y, minT[0].x, minT[0].y);
 
-            label1.Text = "Dolžina poti: " + minD;
+            label1.Text += minD;
+            label2.Text += elapsedMs + " ms";
 
         }
 
@@ -225,9 +248,9 @@ namespace Vizualizacija_problema_potujočega_potnika
             double d = Dolzina(t);
             if (d < minD)
             {
-                minT =(Tocka[]) t.Clone();
+                minT = (Tocka[])t.Clone();
                 minD = d;
-                
+
             }
         }
     }

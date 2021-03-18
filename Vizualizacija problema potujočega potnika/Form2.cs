@@ -20,16 +20,21 @@ namespace Vizualizacija_problema_potujočega_potnika
 
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
-            nadomestneTocke.Add(new Tocka(e.X, e.Y));
+            if (!(nadomestneTocke.Count >= 12))
+            {
+                nadomestneTocke.Add(new Tocka(e.X, e.Y));
 
-            Graphics g = panel1.CreateGraphics();
-            SolidBrush brush = new SolidBrush(Color.Black);
+                Graphics g = panel1.CreateGraphics();
+                SolidBrush brush = new SolidBrush(Color.Black);
 
 
-            g.FillEllipse(brush, e.X - 5, e.Y - 5, 10, 10);
-                
-            g.Dispose();
-            brush.Dispose();
+                g.FillEllipse(brush, e.X - 5, e.Y - 5, 10, 10);
+
+                g.Dispose();
+                brush.Dispose();
+            }
+            else
+                MessageBox.Show("Izbral si maximalno število točk.");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -45,6 +50,7 @@ namespace Vizualizacija_problema_potujočega_potnika
                 DialogResult = DialogResult.None;
                 MessageBox.Show("Izbrati moraš več kot 3 točke.");
             }
+
         }
     }
 }
