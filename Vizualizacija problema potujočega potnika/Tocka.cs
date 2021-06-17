@@ -30,6 +30,7 @@ namespace Vizualizacija_problema_potujočega_potnika
             return tocka;
         }
 
+        // metoda za razhroščevanje
         public void IzpisiTocko()
         {
             Console.WriteLine("x: {0}\ty: {1}", this.x, this.y);

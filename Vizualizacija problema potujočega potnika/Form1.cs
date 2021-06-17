@@ -16,8 +16,6 @@ namespace Vizualizacija_problema_potujočega_potnika
         // Deklariramo seznam razreda Tocka
         List<Tocka> tocke = new List<Tocka>();
 
-        double minD;
-        static Tocka[] minT = new Tocka[0];
 
         public Form1()
         {
@@ -27,8 +25,9 @@ namespace Vizualizacija_problema_potujočega_potnika
         // V seznam "točke" shranimo naključno generirane točke
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
             Random r = new Random();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < numericUpDown1.Value; i++)
             {
                 tocke.Add(new Tocka().NakljucnaTocka(r));
             }
@@ -51,12 +50,10 @@ namespace Vizualizacija_problema_potujočega_potnika
             label2.Text = "Čas delovanja: ";
             double d = 0;
             double koncniD = 0;
-            double minD;
             int minTocka = 0;
-            int zacetnaTocka = 0;
-            int trenutnaTocka = zacetnaTocka;
+            int trenutnaTocka = 0;
             List<int> obiskaneTocke = new List<int>();
-            obiskaneTocke.Add(zacetnaTocka);
+            obiskaneTocke.Add(trenutnaTocka);
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -65,10 +62,7 @@ namespace Vizualizacija_problema_potujočega_potnika
                 minD = 999999999;
                 for (int j = 0; j < tocke.Count; j++)
                 {
-                    if (trenutnaTocka == j || obiskaneTocke.Contains(j))
-                        continue;
-
-                    else
+                    if (!(obiskaneTocke.Contains(j)))
                     {
                         d = Math.Sqrt(Math.Pow(tocke[j].x - tocke[trenutnaTocka].x, 2) + Math.Pow(tocke[j].y - tocke[trenutnaTocka].y, 2));
 
@@ -80,20 +74,18 @@ namespace Vizualizacija_problema_potujočega_potnika
                     }
                 }
 
-
                 g.DrawLine(pen, tocke[trenutnaTocka].x, tocke[trenutnaTocka].y, tocke[minTocka].x, tocke[minTocka].y);
                 obiskaneTocke.Add(minTocka);
                 koncniD += d;
                 trenutnaTocka = minTocka;
-
             }
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
 
-            label1.Text += koncniD;
+            label1.Text += Math.Round(koncniD,2);
             label2.Text += elapsedMs + " ms";
-            g.DrawLine(pen, tocke[trenutnaTocka].x, tocke[trenutnaTocka].y, tocke[zacetnaTocka].x, tocke[zacetnaTocka].y);
+            g.DrawLine(pen, tocke[trenutnaTocka].x, tocke[trenutnaTocka].y, tocke[0].x, tocke[0].y);
             g.Dispose();
             pen.Dispose();
         }
@@ -101,15 +93,14 @@ namespace Vizualizacija_problema_potujočega_potnika
         // S klikom na gumb izvedemo algoritem in ga vizualiziramo
         private void button1_Click(object sender, EventArgs e)
         {
+            NarisiTocke();
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
-                    NarisiTocke();
                     NajblizjiSosed();
                     break;
 
                 case 1:
-                    NarisiTocke();
                     BruteForce();
                     break;
 
@@ -178,6 +169,8 @@ namespace Vizualizacija_problema_potujočega_potnika
         }
 
 
+        double minD;
+        static Tocka[] minT = new Tocka[0];
 
         public void BruteForce()
         {
@@ -202,7 +195,7 @@ namespace Vizualizacija_problema_potujočega_potnika
             }
             g.DrawLine(pen, minT[minT.Length - 1].x, minT[minT.Length - 1].y, minT[0].x, minT[0].y);
 
-            label1.Text += minD;
+            label1.Text += Math.Round(minD,2);
             label2.Text += elapsedMs + " ms";
 
         }
@@ -216,10 +209,9 @@ namespace Vizualizacija_problema_potujočega_potnika
 
         public void Permute(Tocka[] lt, int recursionDepth, int maxDepth)
         {
-
             if (recursionDepth == maxDepth)
             {
-                Primerjava(lt);
+                Compare(lt);
                 return;
             }
 
@@ -232,7 +224,7 @@ namespace Vizualizacija_problema_potujočega_potnika
             }
         }
 
-        public double Dolzina(Tocka[] t)
+        public double Length(Tocka[] t)
         {
             double d = 0;
             for (int i = 1; i < t.Length; i++)
@@ -243,14 +235,13 @@ namespace Vizualizacija_problema_potujočega_potnika
             return d;
         }
 
-        public void Primerjava(Tocka[] t)
+        public void Compare(Tocka[] t)
         {
-            double d = Dolzina(t);
+            double d = Length(t);
             if (d < minD)
             {
                 minT = (Tocka[])t.Clone();
                 minD = d;
-
             }
         }
     }
